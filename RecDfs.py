@@ -1,15 +1,12 @@
-class BFS:
+class RecDfs:
     def __init__(self, initial_state):
         self.initial_state = initial_state
 
     def solve(self):
-
-        queue = [(self.initial_state, [])]
         visited = set()
-        visited.add(self._hash_state(self.initial_state))
 
-        while queue:
-            current_state, path = queue.pop(0)
+
+        def dfs(current_state, path):
 
             print("Current path:", path)
             print("Is goal state?", current_state.grid.is_goal_state())
@@ -21,17 +18,22 @@ class BFS:
                 return path
 
 
+            visited.add(self._hash_state(current_state))
+
 
             for next_state, move in self.get_next_states(current_state):
                 state_hash = self._hash_state(next_state)
                 if state_hash not in visited:
-                    visited.add(state_hash)
-                    queue.append((next_state, path + [move]))
+
+                    result = dfs(next_state, path + [move])
+                    if result:
+                        return result
 
 
-        print("No solution found")
-        return None
+            return None
 
+
+        return dfs(self.initial_state, [])
 
     def get_next_states(self, state):
         next_states = []
@@ -43,4 +45,5 @@ class BFS:
         return next_states
 
     def _hash_state(self, state):
-           return tuple(tuple(square.square_type for square in row) for row in state.grid.grid)
+
+        return tuple(tuple(square.square_type for square in row) for row in state.grid.grid)

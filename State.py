@@ -7,6 +7,10 @@ class State:
     def __init__(self, grid):
         self.grid = copy.deepcopy(grid)
 
+    def __lt__(self, other):
+        return True
+
+
     def move_square(self, x, y, direction):
         cost = 0
 

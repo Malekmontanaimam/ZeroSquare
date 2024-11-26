@@ -6,6 +6,7 @@ from Square import *
 from BFS import *
 from DFS import *
 from UCS import *
+from RecDfs import *
 
 WEAK_GRAY = (200, 200, 200)
 GRAY = (150, 150, 150)
@@ -32,6 +33,7 @@ state = State(grid)
 bfs_solver = BFS(state)
 ucs_solver=UCS(state)
 dfs_solver = DFS(state)
+recdfs_solver=RecDfs(state)
 
 while True:
     for event in pygame.event.get():
@@ -70,7 +72,17 @@ while True:
 
             elif event.key == pygame.K_d:
                 print("Solving using DFS...")
+                solution_path = dfs_solver.solve()
+                if solution_path:
+                    print("Solution path:", solution_path)
+            elif event.key == pygame.K_u:
+                print("Solving using UCS...")
                 solution_path = ucs_solver.solve()
+                if solution_path:
+                    print("Solution path:", solution_path)
+            elif event.key==pygame.K_r:
+                print("Solving using UCS...")
+                solution_path = recdfs_solver.solve()
                 if solution_path:
                     print("Solution path:", solution_path)
 

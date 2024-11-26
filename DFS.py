@@ -1,8 +1,3 @@
-
-
-
-
-
 class DFS:
     def __init__(self, initial_state):
         self.initial_state = initial_state
@@ -17,8 +12,8 @@ class DFS:
             current_state, path = stack.pop()
 
             print("Current path:", path)
-            current_state.grid.print_grid()
             print("Is goal state?", current_state.grid.is_goal_state())
+            current_state.grid.print_grid()
 
 
             if current_state.grid.is_goal_state():

@@ -33,13 +33,17 @@ class Grid:
         for i in range(self.size):
             for j in range(self.size):
                 if (i, j) == self.goal_position:
-                    color = GREEN
+                    color = WHITE
                # elif (i, j) == self.goal_position1:
                #     color = CYAN_GREEN
                 else:
                     square = self.grid[i][j]
                     color = square.color if square.square_type != "empty" else WHITE
+
                 pygame.draw.rect(screen, color, (j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+                if (i, j) == self.goal_position:
+                    pygame.draw.rect(screen, RED, (j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 5)
+
                 pygame.draw.rect(screen, BLACK, (j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 1)
 
     def is_goal_state(self):
