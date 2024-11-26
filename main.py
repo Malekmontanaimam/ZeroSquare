@@ -81,7 +81,7 @@ while True:
                 if solution_path:
                     print("Solution path:", solution_path)
             elif event.key==pygame.K_r:
-                print("Solving using UCS...")
+                print("Solving using RecDfs...")
                 solution_path = recdfs_solver.solve()
                 if solution_path:
                     print("Solution path:", solution_path)
