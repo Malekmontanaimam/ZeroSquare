@@ -28,6 +28,9 @@ class Grid:
             self.grid[x][y] = square
             if square.square_type == "movable":
                 self.selected_squares.append((x, y))
+    def getposition(self,x,y):
+        tempx=0
+        tempy=0
 
     def draw_grid(self, screen):
         for i in range(self.size):
@@ -64,8 +67,13 @@ class Grid:
         return all_reached and not self.selected_squares
 
     def print_grid(self):
+        symbol_map = {
+            "fixed": "⬛",
+            "empty": "⬜",
+            "movable": "🔴",
+        }
         for row in self.grid:
             for square in row:
-                print(square.square_type[0].upper(), end=" ")
+                print(symbol_map.get(square.square_type, "⬜"), end=" ")
             print()
         print("\n")

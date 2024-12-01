@@ -7,6 +7,7 @@ from BFS import *
 from DFS import *
 from UCS import *
 from RecDfs import *
+from Astar import *
 
 WEAK_GRAY = (200, 200, 200)
 GRAY = (150, 150, 150)
@@ -34,6 +35,7 @@ bfs_solver = BFS(state)
 ucs_solver=UCS(state)
 dfs_solver = DFS(state)
 recdfs_solver=RecDfs(state)
+Astar1=Astar(state)
 
 while True:
     for event in pygame.event.get():
@@ -80,9 +82,15 @@ while True:
                 solution_path = ucs_solver.solve()
                 if solution_path:
                     print("Solution path:", solution_path)
+
             elif event.key==pygame.K_r:
                 print("Solving using RecDfs...")
                 solution_path = recdfs_solver.solve()
+                if solution_path:
+                    print("Solution path:", solution_path)
+            elif event.key==pygame.K_a:
+                print("Solving using Astr...")
+                solution_path = Astar1.solve()
                 if solution_path:
                     print("Solution path:", solution_path)
 

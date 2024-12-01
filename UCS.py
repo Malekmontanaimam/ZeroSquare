@@ -20,6 +20,8 @@ class UCS:
 
             if current_state.grid.is_goal_state():
                 print("Goal state reached with cost:", cost)
+                print("Is goal state?", current_state.grid.is_goal_state())
+                current_state.grid.print_grid()
                 return path
 
             for next_state, move, move_cost in self.get_next_states(current_state):
