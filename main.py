@@ -8,7 +8,8 @@ from DFS import *
 from UCS import *
 from RecDfs import *
 from Astar import *
-
+from SteepestHillClimping import *
+from SimpleHillClimbing import *
 WEAK_GRAY = (200, 200, 200)
 GRAY = (150, 150, 150)
 RED = (255, 0, 0)
@@ -36,6 +37,8 @@ ucs_solver=UCS(state)
 dfs_solver = DFS(state)
 recdfs_solver=RecDfs(state)
 Astar1=Astar(state)
+SteepestHillClimping=SteepestHillClimping(state)
+SimpleHillClimbing=SimpleHillClimbing(state)
 
 while True:
     for event in pygame.event.get():
@@ -93,11 +96,26 @@ while True:
                 solution_path = Astar1.solve()
                 if solution_path:
                     print("Solution path:", solution_path)
+            elif event.key==pygame.K_h:
+                print("Solving using SteepestHillClimping...")
+                solution_path = SteepestHillClimping.solve()
+                if solution_path:
+                    print("Solution path:", solution_path)
+            elif event.key==pygame.K_p:
+                print("Solving using SimpleHillClimbing...")
+                solution_path = SimpleHillClimbing.solve()
+                if solution_path:
+                    print("Solution path:", solution_path)
 
             if new_state:
                 grid = new_state.grid
                 grid.print_grid()
 
+                new_selected_squares = []
+                for x, y in grid.selected_squares:
+                    if grid.grid[x][y].square_type == "movable":
+                        new_selected_squares.append((x, y))
+                grid.selected_squares = new_selected_squares
     screen.fill(WHITE)
     grid.draw_grid(screen)
 

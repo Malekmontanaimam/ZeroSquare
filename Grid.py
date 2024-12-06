@@ -16,7 +16,8 @@ class Grid:
         self.grid = [[Square("empty", WHITE) for _ in range(n)] for _ in range(n)]
         self.selected_squares = []
         self.goal_position = (self.size - 2, self.size - 2)
-       # self.goal_position1 = (self.size - 5, self.size - 2)
+        #self.goal_position1 = (self.size - 5, self.size - 2)
+
         for i in range(n):
             self.grid[0][i] = Square("fixed", GRAY)
             self.grid[n - 1][i] = Square("fixed", GRAY)
@@ -28,24 +29,32 @@ class Grid:
             self.grid[x][y] = square
             if square.square_type == "movable":
                 self.selected_squares.append((x, y))
-    def getposition(self,x,y):
-        tempx=0
-        tempy=0
+
+    def find_goal(self):
+        return self.goal_position
 
     def draw_grid(self, screen):
         for i in range(self.size):
             for j in range(self.size):
+
                 if (i, j) == self.goal_position:
                     color = WHITE
-               # elif (i, j) == self.goal_position1:
-               #     color = CYAN_GREEN
+
+                #elif (i, j) == self.goal_position1:
+                 #   color = WHITE
                 else:
                     square = self.grid[i][j]
                     color = square.color if square.square_type != "empty" else WHITE
 
+
                 pygame.draw.rect(screen, color, (j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+
+
                 if (i, j) == self.goal_position:
                     pygame.draw.rect(screen, RED, (j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 5)
+                #elif (i, j) == self.goal_position1:
+                 #   pygame.draw.rect(screen, RED2, (j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 5)
+
 
                 pygame.draw.rect(screen, BLACK, (j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 1)
 
@@ -55,8 +64,10 @@ class Grid:
 
             if (x, y) == self.goal_position and self.grid[x][y].color == RED:
               self.grid[x][y] = Square("empty", WHITE)
+
           #  elif (x, y) == self.goal_position1 and self.grid[x][y].color == RED2:
            #       self.grid[x][y] = Square("empty", WHITE)
+
             else:
 
                 all_reached = False

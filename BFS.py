@@ -18,6 +18,8 @@ class BFS:
 
             if current_state.grid.is_goal_state():
                 print("Goal state reached:", path)
+                print("Is goal state?", current_state.grid.is_goal_state())
+                current_state.grid.print_grid()
                 return path
 
 

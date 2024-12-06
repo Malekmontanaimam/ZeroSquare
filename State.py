@@ -10,35 +10,41 @@ class State:
     def __lt__(self, other):
         return True
 
-
     def move_square(self, x, y, direction):
         cost = 0
 
         if self.grid.grid[x][y].square_type != "movable":
             return None
+
         new_state = State(self.grid)
         square = new_state.grid.grid[x][y]
         new_state.grid.grid[x][y] = Square("empty", WHITE)
 
+        # منطق الحركة حسب الاتجاهات
         if direction == "up":
-            while x > 0 and (new_state.grid.grid[x - 1][y].square_type == "empty" or new_state.grid.grid[x - 1][y].square_type == "weak"):
+            while x > 0 and (new_state.grid.grid[x - 1][y].square_type == "empty" or new_state.grid.grid[x - 1][
+                y].square_type == "weak"):
                 x -= 1
-                cost+=1
+                cost += 1
         elif direction == "down":
-            while x < new_state.grid.size - 1 and (new_state.grid.grid[x + 1][y].square_type == "empty" or new_state.grid.grid[x + 1][y].square_type == "weak"):
+            while x < new_state.grid.size - 1 and (
+                    new_state.grid.grid[x + 1][y].square_type == "empty" or new_state.grid.grid[x + 1][
+                y].square_type == "weak"):
                 x += 1
-                cost+=1
-
+                cost += 1
         elif direction == "left":
-            while y > 0 and (new_state.grid.grid[x][y - 1].square_type == "empty" or new_state.grid.grid[x][y - 1].square_type == "weak"):
+            while y > 0 and (new_state.grid.grid[x][y - 1].square_type == "empty" or new_state.grid.grid[x][
+                y - 1].square_type == "weak"):
                 y -= 1
-                cost+=1
-
+                cost += 1
         elif direction == "right":
-            while y < new_state.grid.size - 1 and (new_state.grid.grid[x][y + 1].square_type == "empty" or new_state.grid.grid[x][y + 1].square_type == "weak"):
+            while y < new_state.grid.size - 1 and (
+                    new_state.grid.grid[x][y + 1].square_type == "empty" or new_state.grid.grid[x][
+                y + 1].square_type == "weak"):
                 y += 1
-                cost+=1
+                cost += 1
 
+        # التحقق من حالة "weak"
         if new_state.grid.grid[x][y].square_type == "weak":
             print("Restart.")
             pygame.quit()

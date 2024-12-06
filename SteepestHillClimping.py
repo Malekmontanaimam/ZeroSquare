@@ -1,38 +1,47 @@
-import heapq
 
-class Astar:
+
+class SteepestHillClimping:
     def __init__(self, initial_state):
         self.initial_state = initial_state
 
     def solve(self):
-        # (total_cost, g_cost, state, path)
-        priority_queue = [(self.heuristic(self.initial_state), 0, self.initial_state, [])]
+        current_state = self.initial_state
+        current_path = []
         visited = set()
-        visited.add(self._hash_state(self.initial_state))
+        visited.add(self._hash_state(current_state))
 
-        while priority_queue:
-            total_cost, g_cost, current_state, path = heapq.heappop(priority_queue)
-
-            print("Current path:", path)
-            print("Current g_cost:", g_cost)
-            print("Is goal state?", current_state.grid.is_goal_state())
+        while True:
+            print("Current path:", current_path)
+            print("Current state heuristic:", self.heuristic(current_state))
             current_state.grid.print_grid()
 
             if current_state.grid.is_goal_state():
-                print("Goal state reached with cost:", g_cost)
-                print("Is goal state?", current_state.grid.is_goal_state())
-                return path
+                print("Goal state reached!")
+                return current_path
+
+
+            best_neighbor = None
+            best_heuristic = float("inf")
+            best_move = None
 
             for next_state, move, move_cost in self.get_next_states(current_state):
                 state_hash = self._hash_state(next_state)
                 if state_hash not in visited:
                     visited.add(state_hash)
-                    new_g_cost = g_cost + move_cost
-                    new_total_cost = new_g_cost + self.heuristic(next_state)
-                    heapq.heappush(priority_queue, (new_total_cost, new_g_cost, next_state, path + [move]))
+                    h_value = self.heuristic(next_state)
+                    if h_value < best_heuristic:
+                        best_neighbor = next_state
+                        best_heuristic = h_value
+                        best_move = move
 
-        print("No solution found")
-        return None
+            if best_neighbor is None or best_heuristic >= self.heuristic(current_state):
+
+                print("Stuck at local optimum or no neighbors found.")
+                return None
+
+
+            current_state = best_neighbor
+            current_path.append(best_move)
 
     def get_next_states(self, state):
         next_states = []
