@@ -28,9 +28,9 @@ class State:
                 y].square_type == "weak"):
                 x -= 1
                 cost += 1
-                if (x, y) == new_state.grid.goal_position and square.color == RED:
-                    break
-                if (x, y) == new_state.grid.goal_position1 and square.color == RED2:
+                # تحقق من الوصول إلى الهدف
+                if ((x, y) == new_state.grid.goal_position and square.color == RED) or \
+                        ((x, y) == new_state.grid.goal_position1 and square.color == RED2):
                     break
         elif direction == "down":
             while x < new_state.grid.size - 1 and (
@@ -38,34 +38,28 @@ class State:
                 y].square_type == "weak"):
                 x += 1
                 cost += 1
-                if (x, y) == new_state.grid.goal_position and square.color == RED:
+                if ((x, y) == new_state.grid.goal_position and square.color == RED) or \
+                        ((x, y) == new_state.grid.goal_position1 and square.color == RED2):
                     break
-                if (x, y) == new_state.grid.goal_position1 and square.color == RED2:
-                    break
+
         elif direction == "left":
             while y > 0 and (new_state.grid.grid[x][y - 1].square_type == "empty" or new_state.grid.grid[x][
                 y - 1].square_type == "weak"):
                 y -= 1
                 cost += 1
-                if (x, y) == new_state.grid.goal_position and square.color == RED:
+                if ((x, y) == new_state.grid.goal_position and square.color == RED) or \
+                        ((x, y) == new_state.grid.goal_position1 and square.color == RED2):
                     break
-                if (x, y) == new_state.grid.goal_position1 and square.color == RED2:
-                    break
+
         elif direction == "right":
             while y < new_state.grid.size - 1 and (
                     new_state.grid.grid[x][y + 1].square_type == "empty" or new_state.grid.grid[x][
                 y + 1].square_type == "weak"):
                 y += 1
                 cost += 1
-                if (x, y) == new_state.grid.goal_position and square.color == RED:
+                if ((x, y) == new_state.grid.goal_position and square.color == RED) or \
+                        ((x, y) == new_state.grid.goal_position1 and square.color == RED2):
                     break
-                if (x, y) == new_state.grid.goal_position1 and square.color == RED2:
-                    break
-
-        if new_state.grid.grid[x][y].square_type == "weak":
-            print("Restart.")
-            pygame.quit()
-            sys.exit()
 
         new_state.grid.grid[x][y] = square
         new_state.grid.selected_squares.append((x, y))

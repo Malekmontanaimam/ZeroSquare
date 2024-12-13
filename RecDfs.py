@@ -45,5 +45,4 @@ class RecDfs:
         return next_states
 
     def _hash_state(self, state):
-
-        return tuple(tuple(square.square_type for square in row) for row in state.grid.grid)
+        return tuple(tuple((square.square_type, square.color) for square in row) for row in state.grid.grid)

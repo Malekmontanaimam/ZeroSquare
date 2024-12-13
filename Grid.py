@@ -59,22 +59,20 @@ class Grid:
                 pygame.draw.rect(screen, BLACK, (j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 1)
 
     def is_goal_state(self):
-        all_reached = True  # فرضية أن جميع الأهداف قد تم الوصول إليها
+        all_reached = True
         for x, y in self.selected_squares:
-            # تحقق مما إذا كانت المربع المتحرك الأحمر قد وصل إلى هدفه
-            if (x, y) == self.goal_position and self.grid[x][y].color == RED:
-                self.grid[x][y] = Square("fixed", WHITE)  # تحويل المربع إلى ثابت
-            elif (x, y) == self.goal_position1 and self.grid[x][y].color == RED2:
-                self.grid[x][y] = Square("fixed", WHITE)  # تحويل المربع إلى ثابت
-            else:
-                all_reached = False  # إذا لم يصل المربع إلى الهدف، فالحالة ليست نهائية
 
-        # تحديث قائمة المربعات المتحركة فقط
+            if (x, y) == self.goal_position and self.grid[x][y].color == RED:
+                self.grid[x][y] = Square("empty", WHITE)
+            elif (x, y) == self.goal_position1 and self.grid[x][y].color == RED2:
+                self.grid[x][y] = Square("empty", WHITE)
+            else:
+                all_reached = False
+
         self.selected_squares = [
             (x, y) for x, y in self.selected_squares if self.grid[x][y].square_type == "movable"
         ]
 
-        # إذا لم تبق أي مربعات متحركة وجميع الأهداف قد تحققت
         return all_reached and not self.selected_squares
 
     def print_grid(self):
