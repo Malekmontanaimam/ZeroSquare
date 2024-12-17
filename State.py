@@ -4,13 +4,15 @@ import sys
 from Square import *
 RED = (255, 0, 0)
 RED2 = (255, 4, 190)
+YELLOW = (255, 255, 0)
+Marron =  (128, 0, 0)
+TEAL = (0, 128, 128)
 class State:
 
     def __init__(self, grid):
         self.grid = copy.deepcopy(grid)
 
-    def __lt__(self, other):
-        return True
+
 
     def move_square(self, x, y, direction):
         cost = 0
@@ -22,15 +24,21 @@ class State:
         square = new_state.grid.grid[x][y]
         new_state.grid.grid[x][y] = Square("empty", WHITE)
 
-        # منطق الحركة حسب الاتجاهات
+
         if direction == "up":
             while x > 0 and (new_state.grid.grid[x - 1][y].square_type == "empty" or new_state.grid.grid[x - 1][
                 y].square_type == "weak"):
                 x -= 1
                 cost += 1
-                # تحقق من الوصول إلى الهدف
+
                 if ((x, y) == new_state.grid.goal_position and square.color == RED) or \
-                        ((x, y) == new_state.grid.goal_position1 and square.color == RED2):
+                        ((x, y) == new_state.grid.goal_position1 and square.color == YELLOW) :
+                    #or\
+                      #  ((x, y) == new_state.grid.goal_position2 and square.color == RED2) or \
+                    #((x, y) == new_state.grid.goal_position3 and square.color == Marron) or \
+                     # ((x, y) == new_state.grid.goal_position4 and square.color == TEAL) \
+
+
                     break
         elif direction == "down":
             while x < new_state.grid.size - 1 and (
@@ -39,7 +47,12 @@ class State:
                 x += 1
                 cost += 1
                 if ((x, y) == new_state.grid.goal_position and square.color == RED) or \
-                        ((x, y) == new_state.grid.goal_position1 and square.color == RED2):
+                        ((x, y) == new_state.grid.goal_position1 and square.color == YELLOW):
+                    # or\
+                    #  ((x, y) == new_state.grid.goal_position2 and square.color == RED2) or \
+                    # ((x, y) == new_state.grid.goal_position3 and square.color == Marron) or \
+                    # ((x, y) == new_state.grid.goal_position4 and square.color == TEAL) \
+
                     break
 
         elif direction == "left":
@@ -48,7 +61,12 @@ class State:
                 y -= 1
                 cost += 1
                 if ((x, y) == new_state.grid.goal_position and square.color == RED) or \
-                        ((x, y) == new_state.grid.goal_position1 and square.color == RED2):
+                        ((x, y) == new_state.grid.goal_position1 and square.color == YELLOW):
+                    # or\
+                    #  ((x, y) == new_state.grid.goal_position2 and square.color == RED2) or \
+                    # ((x, y) == new_state.grid.goal_position3 and square.color == Marron) or \
+                    # ((x, y) == new_state.grid.goal_position4 and square.color == TEAL) \
+
                     break
 
         elif direction == "right":
@@ -58,7 +76,12 @@ class State:
                 y += 1
                 cost += 1
                 if ((x, y) == new_state.grid.goal_position and square.color == RED) or \
-                        ((x, y) == new_state.grid.goal_position1 and square.color == RED2):
+                        ((x, y) == new_state.grid.goal_position1 and square.color == YELLOW):
+                    # or\
+                    #  ((x, y) == new_state.grid.goal_position2 and square.color == RED2) or \
+                    # ((x, y) == new_state.grid.goal_position3 and square.color == Marron) or \
+                    # ((x, y) == new_state.grid.goal_position4 and square.color == TEAL) \
+
                     break
 
         new_state.grid.grid[x][y] = square
